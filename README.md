@@ -1,2 +1,2 @@
-# dimitrysh.github.io
-My demo page.
+# My pretty hello page
+Find a little of information about me and my projects.
