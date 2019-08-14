@@ -527,3 +527,61 @@ body {
         font-size: 16px;
     }
 }
+
+.push-panel {
+    position: fixed;
+    z-index: 20;
+    top: 120px;
+    left: 10px;
+    background-color: #fff;
+    -webkit-border-radius: 8px;
+            border-radius: 8px;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    -webkit-transform: translateX(-110%);
+        -ms-transform: translateX(-110%);
+            transform: translateX(-110%);
+    -webkit-transition: -webkit-transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
+    transition: -webkit-transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
+    -o-transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
+    transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
+    transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1), -webkit-transform 300ms cubic-bezier(0.2, 0, 0.2, 1); }
+    .push-panel__content {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+          -ms-flex-wrap: wrap;
+              flex-wrap: wrap;
+      max-width: 300px;
+      padding: 5px; }
+      .push-panel__content img {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px; }
+    .push-panel__title {
+      width: calc(100% - 30px); }
+      .push-panel__title span {
+        color: #90b400;
+        text-decoration: underline; }
+    .push-panel__btns {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+      width: 100%;
+      margin-top: 5px; }
+    .push-panel__btn {
+      padding: 5px 10px;
+      border-color: transparent; }
+      .push-panel__btn:last-of-type {
+        margin-left: 5px; }
+    .push-panel.is-shown {
+      -webkit-transform: translateX(0);
+          -ms-transform: translateX(0);
+              transform: translateX(0); }
