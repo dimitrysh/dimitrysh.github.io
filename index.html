@@ -102,8 +102,9 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+        });
 
-            if (null !== pushPanel && 'true' !== localStorage.getItem('pushInteraction')) {
+        if (null !== pushPanel && 'true' !== localStorage.getItem('pushInteraction')) {
                 window.addEventListener('load', (e) => {
                     pushPanel.classList.add('is-shown');
                 });
@@ -126,7 +127,6 @@
                         });
                 });
             }
-        });
 
         function closePushPanel(event) {
             event.target.closest('#push-panel').classList.remove('is-shown');
