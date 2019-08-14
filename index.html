@@ -21,7 +21,19 @@
 </head>
 
 <body>
-
+    <div class="push-panel" id="push-panel">
+        <div class="push-panel__content">
+            <img src="/design/images/notification-bell.svg" alt width="24" height="24">
+            <? // @TODO: добавить переводы ?>
+            <div class="push-panel__title">
+                Хотите добавить <span>0629.com.ua</span> на главный экран и быть в курсе новостей?
+            </div>
+            <div class="push-panel__btns">
+                <button class="push-panel__btn btn btn-brand" id="pwa-install">Добавить</button>
+                <button class="push-panel__btn push-panel__btn--cancel btn">Нет, спасибо</button>
+            </div>
+        </div>
+    </div>
     <div class="main-wrapper">
         <div class="container hero">
             <div class="row">
@@ -39,7 +51,6 @@
                     <div class="hero__btns could-animate">
                         <a class="btn" href="mailto:shvetsov.dmitr@gmail.com">mail me</a>
                         <a class="btn" href="projects.html">recent projects</a>
-                        <button class="install-btn btn" id="butInstall">add to scrren</button>
                     </div>
                     <div class="hero__socials could-animate">
                         <a href="https://github.com/dimitrysh">
@@ -76,41 +87,52 @@
         });
 
         if ('serviceWorker' in navigator) {
-            console.log('CLIENT: service worker registration in progress.');
+            // service worker registration in progress
             navigator.serviceWorker.register('/service-worker.js').then(function () {
-                console.log('CLIENT: service worker registration complete.');
+                // service worker registration in complete
             }, function () {
-                console.log('CLIENT: service worker registration failure.');
+                // service worker registration in failure
             });
-        } else {
-            console.log('CLIENT: service worker is not supported.');
         }
 
-        let deferredPrompt;
-        const btnAdd = document.getElementById('butInstall');
+        var deferredPrompt,
+            pushPanel = document.getElementById('push-panel'),
+            pushPanelClose = document.querySelector('.push-panel__btn--cancel'),
+            installBtn = document.getElementById('pwa-install');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Stash the event so it can be triggered later.
             e.preventDefault();
             deferredPrompt = e;
+
+            if (null !== pushPanel && 'true' !== localStorage.getItem('pushInteraction')) {
+                window.addEventListener('load', (e) => {
+                    pushPanel.classList.add('is-shown');
+                });
+
+                pushPanelClose.addEventListener('click', (e) => {
+                    closePushPanel(e);
+                });
+
+                installBtn.addEventListener('click', (e) => {
+                    closePushPanel(e);
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice
+                        .then((choiceResult) => {
+                            if (choiceResult.outcome === 'accepted') {
+                                // User accepted the A2HS prompt
+                            } else {
+                                // User dismissed the A2HS prompt
+                            }
+                            deferredPrompt = null;
+                        });
+                });
+            }
         });
 
-        btnAdd.addEventListener('click', (e) => {
-            // hide our user interface that shows our A2HS button
-            btnAdd.style.display = 'none';
-            // Show the prompt
-            deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
-            deferredPrompt.userChoice
-                .then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the A2HS prompt');
-                    } else {
-                        console.log('User dismissed the A2HS prompt');
-                    }
-                    deferredPrompt = null;
-                });
-        });
+        function closePushPanel(event) {
+            event.target.closest('#push-panel').classList.remove('is-shown');
+            localStorage.setItem('pushInteraction', 'true');
+        }
     </script>
 </body>
 
