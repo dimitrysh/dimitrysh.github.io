@@ -29,17 +29,16 @@ const CACHE_NAME = 'offline';
 // Customize this with a different URL if needed.
 const OFFLINE_URL = 'offline-page.html';
 
-self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    // Setting {cache: 'reload'} in the new request will ensure that the response
-    // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
-    // await cache.add(new Request(OFFLINE_URL, {cache: 'reload'}));
-    await cache.addAll([
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll([
         OFFLINE_URL,
-        '/css/main.css'
-    ]);
-  })());
+        '/css/main.css',
+        'css/main.css'
+      ]);
+    })
+  );
 });
 
 self.addEventListener('activate', (event) => {
