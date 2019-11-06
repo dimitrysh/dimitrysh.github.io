@@ -81,57 +81,65 @@
     </div>
 
     <script>
-        window.addEventListener('load', function () {
-            document.body.classList.add('loaded');
+      if ('serviceWorker' in navigator) {
+        // service worker registration in progress
+        navigator.serviceWorker.register('/service-worker.js').then(function () {
+          // service worker registration in complete
+        }, function () {
+          // service worker registration in failure
         });
+      }
 
-        if ('serviceWorker' in navigator) {
-            // service worker registration in progress
-            navigator.serviceWorker.register('/service-worker.js').then(function () {
-                // service worker registration in complete
-            }, function () {
-                // service worker registration in failure
+      var deferredPrompt,
+        pushPanel = document.getElementById('push-panel'),
+        pushPanelClose = document.querySelector('.push-panel__btn--cancel'),
+        installBtn = document.getElementById('pwa-install');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+      });
+
+      function closePushPanel(event) {
+        event.target.closest('#push-panel').classList.remove('is-shown');
+        localStorage.setItem('pushInteraction', 'true');
+      }
+
+      function isApplePlatform() {
+        if (
+          navigator.appVersion.indexOf("Mac") != -1 ||
+          navigator.platform.indexOf('iPhone') != -1 ||
+          navigator.platform.indexOf('iPad') != -1
+        ) {
+          return true;
+        }
+      }
+
+      if (null !== pushPanel && 'true' !== localStorage.getItem('pushInteraction') && window.innerWidth < 1025) {
+        if (!isApplePlatform()) {
+          window.addEventListener('load', (e) => {
+            pushPanel.classList.add('is-shown');
+          });
+
+          pushPanelClose.addEventListener('click', (e) => {
+            closePushPanel(e);
+          });
+
+          installBtn.addEventListener('click', (e) => {
+            closePushPanel(e);
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice
+            .then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                // User accepted prompt
+              } else {
+                // User dismissed prompt
+              }
+              deferredPrompt = null;
             });
+          });
         }
-
-        var deferredPrompt,
-            pushPanel = document.getElementById('push-panel'),
-            pushPanelClose = document.querySelector('.push-panel__btn--cancel'),
-            installBtn = document.getElementById('pwa-install');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        if (null !== pushPanel && 'true' !== localStorage.getItem('pushInteraction')) {
-                window.addEventListener('load', (e) => {
-                    pushPanel.classList.add('is-shown');
-                });
-
-                pushPanelClose.addEventListener('click', (e) => {
-                    closePushPanel(e);
-                });
-
-                installBtn.addEventListener('click', (e) => {
-                    closePushPanel(e);
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice
-                        .then((choiceResult) => {
-                            if (choiceResult.outcome === 'accepted') {
-                                // User accepted the A2HS prompt
-                            } else {
-                                // User dismissed the A2HS prompt
-                            }
-                            deferredPrompt = null;
-                        });
-                });
-            }
-
-        function closePushPanel(event) {
-            event.target.closest('#push-panel').classList.remove('is-shown');
-            localStorage.setItem('pushInteraction', 'true');
-        }
+      }
     </script>
 </body>
 
