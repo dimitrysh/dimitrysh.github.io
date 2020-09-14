@@ -1,8 +1,8 @@
 {
   "name": "Hello page of D.Shvetsov (Frontend Developer)",
   "short_name": "Hello @dimitrysh",
-  "theme_color": "#3AA17E",
-  "background_color": "#3AA17E",
+  "theme_color": "#8e44ad",
+  "background_color": "#8e44ad",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/",

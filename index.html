@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="msapplication-starturl" content="/">
     <meta name="application-name" content="Dimitrysh">
-    <meta name="msapplication-TileColor" content="#3AA17E">
-    <meta name="theme-color" content="#3AA17E">
+    <meta name="msapplication-TileColor" content="#8e44ad">
+    <meta name="theme-color" content="#8e44ad">
     <title>Hello @dimitrysh</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -21,37 +21,20 @@
 </head>
 
 <body>
-    <div class="push-panel" id="push-panel">
-        <div class="push-panel__content">
-            <img src="img/notification-bell.svg" alt width="24" height="24">
-            <div class="push-panel__title">
-                Хотите добавить <span>0629.com.ua</span> на главный экран и быть в курсе новостей?
-            </div>
-            <div class="push-panel__btns">
-                <button class="push-panel__btn btn btn-brand" id="pwa-install">Добавить</button>
-                <button class="push-panel__btn push-panel__btn--cancel btn">Нет, спасибо</button>
-            </div>
-        </div>
-    </div>
     <div class="main-wrapper">
         <div class="container hero">
-            <div class="row">
+            <div class="row" style="align-items: center;">
                 <div class="col">
-                    <div class="hero__title could-animate">
-                        Hi, I'm Dmitry Shvetsov
+                    <div class="hero__title">
+                        Hello, my name is Dmytro and I am
                     </div>
-                    <div class="hero__position could-animate">
+                    <div class="hero__position">
                         frontend developer
                     </div>
-                    <div class="hero__separator could-animate"></div>
-                    <div class="hero__text could-animate">
+                    <div class="hero__text">
                         I love to create beautiful markups and convenient interfaces.
                     </div>
-                    <div class="hero__btns could-animate">
-                        <a class="btn" href="mailto:shvetsov.dmitr@gmail.com">mail me</a>
-                        <a class="btn" href="projects.html">recent projects</a>
-                    </div>
-                    <div class="hero__socials could-animate">
+                    <div class="hero__socials">
                         <a href="https://github.com/dimitrysh">
                             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -73,74 +56,12 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="hero__image could-animate" style="background-image: url('img/hero.jpg');">
+                    <div class="hero__image" style="background-image: url('img/ava.jpeg');">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        // service worker registration in progress
-        navigator.serviceWorker.register('/service-worker.js').then(function () {
-          // service worker registration in complete
-        }, function () {
-          // service worker registration in failure
-        });
-      }
-
-      var deferredPrompt,
-        pushPanel = document.getElementById('push-panel'),
-        pushPanelClose = document.querySelector('.push-panel__btn--cancel'),
-        installBtn = document.getElementById('pwa-install');
-
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-      });
-
-      function closePushPanel(event) {
-        event.target.closest('#push-panel').classList.remove('is-shown');
-        localStorage.setItem('pushInteraction', 'true');
-      }
-
-      function isApplePlatform() {
-        if (
-          navigator.appVersion.indexOf("Mac") != -1 ||
-          navigator.platform.indexOf('iPhone') != -1 ||
-          navigator.platform.indexOf('iPad') != -1
-        ) {
-          return true;
-        }
-      }
-
-      if (null !== pushPanel && 'true' !== localStorage.getItem('pushInteraction') && window.innerWidth < 1025) {
-        if (!isApplePlatform()) {
-          window.addEventListener('load', (e) => {
-            pushPanel.classList.add('is-shown');
-          });
-
-          pushPanelClose.addEventListener('click', (e) => {
-            closePushPanel(e);
-          });
-
-          installBtn.addEventListener('click', (e) => {
-            closePushPanel(e);
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice
-            .then((choiceResult) => {
-              if (choiceResult.outcome === 'accepted') {
-                // User accepted prompt
-              } else {
-                // User dismissed prompt
-              }
-              deferredPrompt = null;
-            });
-          });
-        }
-      }
-    </script>
 </body>
 
 </html>

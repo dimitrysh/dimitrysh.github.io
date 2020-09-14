@@ -221,28 +221,6 @@ body {
     overflow: hidden;
 }
 
-.main-wrapper::before,
-.main-wrapper::after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    content: '';
-}
-
-.main-wrapper::before {
-    opacity: 0;
-    background-image: url("../img/main-bg_c.jpeg");
-    background-position: center;
-    background-size: cover;
-}
-
-.main-wrapper::after {
-    opacity: .85;
-    background-image: linear-gradient(25deg, #00537E, #3AA17E);
-}
-
 .container {
     position: relative;
     z-index: 1;
@@ -269,29 +247,18 @@ body {
     order: -1;
 }
 
-.hero {
-    color: #fff;
-}
-
 .hero__title {
     margin-bottom: .5rem;
     font-size: 2rem;
 }
 
 .hero__position {
-    font-size: .9rem;
     text-transform: uppercase;
-    color: #f1c40f;
-}
-
-.hero__separator {
-    width: 0;
-    height: 2px;
-    margin: .8rem 0 1.5rem;
-    background-color: #f1c40f;
+    color: #8e44ad;
 }
 
 .hero__text {
+    margin: 2rem 0 1rem;
     font-size: 1.5rem;
 }
 
@@ -313,55 +280,23 @@ body {
 .hero__socials a svg {
     width: 24px;
     height: 24px;
-    fill: rgba(241, 196, 15, .6);
+    fill: #8e44ad;
     transition: .3s;
 }
 
 .hero__socials a:hover svg {
-    fill: rgba(241, 196, 15, .8);
+    fill: #6a3281;
 }
 
 .hero__image {
-    max-width: 250px;
-    margin: 0 auto 1.5rem;
-    padding-bottom: 250px;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.5rem;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.815);
     background-position: center;
     background-size: cover;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
-}
-
-.btn {
-    display: inline-block;
-    min-width: 120px;
-    padding: .5rem 1rem;
-    background-color: #fff;
-    color: rgb(49, 151, 117);
-    text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
-    border-radius: 20px;
-    letter-spacing: 2px;
-    transition: .3s;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-
-.btn:hover,
-.btn:focus {
-    transform: translateY(2px);
-    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
-    color: rgb(49, 151, 117);
-}
-
-.btn:focus {
-    outline: none;
-}
-
-.btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
 }
 
 .link {
@@ -403,202 +338,12 @@ body {
     }
 
     .hero__image {
-        max-width: 100%;
         margin-bottom: 0;
-        padding-bottom: 100%;
     }
 }
-
-/* animations */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translate3d(0, -100%, 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translate3d(60%, 0, 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes widthChanging {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 80px;
-    }
-}
-
-@keyframes fadeInBg {
-    from {
-        opacity: 0;
-        transform: scale(1.15);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.loaded .could-animate {
-    animation-duration: 1s;
-    animation-fill-mode: both;
-}
-
-.loaded .hero__text,
-.loaded .hero__title,
-.loaded .hero__position,
-.loaded .hero__btns {
-    animation-name: fadeIn;
-}
-
-.loaded .main-wrapper::before {
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-name: fadeInBg;
-}
-
-.loaded .hero__socials {
-    animation-delay: .5s;
-    animation-name: fadeInUp;
-}
-
-.loaded .hero__separator {
-    animation-name: widthChanging;
-}
-
-.loaded .hero__image {
-    animation-delay: 1s;
-    animation-name: fadeInRight;
-}
-
-.loaded .projects {
-    animation-name: fadeInDown;
-}
-
-.loaded .link {
-    animation-delay: 1.5s;
-    animation-name: fadeInUp;
-}
-
-/* end animations */
 
 @media (min-width: 992px) {
     html {
         font-size: 16px;
     }
-}
-
-.push-panel {
-    position: fixed;
-    z-index: 20;
-    top: 120px;
-    left: 10px;
-    background-color: #fff;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    -webkit-transform: translateX(-110%);
-    -ms-transform: translateX(-110%);
-    transform: translateX(-110%);
-    -webkit-transition: -webkit-transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
-    transition: -webkit-transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
-    -o-transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
-    transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
-    transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1), -webkit-transform 300ms cubic-bezier(0.2, 0, 0.2, 1);
-}
-
-.push-panel__content {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    max-width: 300px;
-    padding: 5px;
-}
-
-.push-panel__content img {
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
-}
-
-.push-panel__title {
-    width: calc(100% - 30px);
-}
-
-.push-panel__title span {
-    color: #90b400;
-    text-decoration: underline;
-}
-
-.push-panel__btns {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 5px;
-}
-
-.push-panel__btn {
-    padding: 5px 10px;
-    border-color: transparent;
-}
-
-.push-panel__btn:last-of-type {
-    margin-left: 5px;
-}
-
-.push-panel.is-shown {
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
 }
